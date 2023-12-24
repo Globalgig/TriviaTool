@@ -1,8 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-trivia-client/node_modules
-trivia-server/node_modules
+*/node_modules
 /.pnp
 .pnp.js
 
@@ -10,7 +9,7 @@ trivia-server/node_modules
 /coverage
 
 # production
-/build
+*/build
 
 # misc
 .DS_Store
