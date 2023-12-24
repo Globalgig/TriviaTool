@@ -94,7 +94,7 @@ class InitializationButton extends Component {
   }
 
   handleClick() {
-    axios.post('http://' + this.props.ip + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
+    axios.post('https://' + this.props.ip + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
       .then(() => {
         this.props.parentCallback()
       })
@@ -134,7 +134,7 @@ class BuzzButton extends Component {
   }
 
   handleClick() {
-    axios.post('http://' + this.props.ip + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
+    axios.post('https://' + this.props.ip + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
       .then(function (response) {
         console.log(response);
       })
