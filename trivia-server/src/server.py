@@ -14,16 +14,21 @@ buzzedTeams = []
 def register():
     data = request.get_json()
     if data == None or data == "":
-        return "Team Name not found!", 400
-    if data["teamName"] in [x[0] for x in teams]:
-        return "Team name already exists!", 400
+        return "Team name not found!", 400
     
-    print(data['teamName'])
+    # Scan all teams for a matching team name and password.
+    for index in range(len(teams)):
+        if data["teamName"] == teams[index][0] and data["password"] == teams[index][1]:
+            return "Registered!", 200
     
-    teams.append([data["teamName"], data["password"]])
-    unbuzzedTeams.append(data["teamName"])
+    # Scan to see if team does not exist. Make a new team if so.
+    if data["teamName"] not in [x[0] for x in teams]:
+        teams.append([data["teamName"], data["password"]])
+        unbuzzedTeams.append(data["teamName"])
+        return "Registered!", 200
 
-    return "Registered!", 200
+    # Matching team name was found but password was incorrect.
+    return "Incorrect password!", 400
 
 
 @app.route('/buzz', methods=['POST'])

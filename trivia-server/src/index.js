@@ -17,6 +17,7 @@ class Leaderboard extends Component {
     this.fetchQueue = this.fetchQueue.bind(this)
   }
   
+  // HTTP polling happens on a one second timer, can be edited if too intense or not fast enough
   componentDidMount() {
     this.timer = setInterval(() => this.fetchQueue(), 1000)
   }

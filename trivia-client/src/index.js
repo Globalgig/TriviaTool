@@ -5,18 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
 
-
-// REMOVE THIS LMAO
-// #4ECDC4 - Blue
-
-
-
 class Main extends Component {
   constructor() {
     super();
     this.state = {
       initialized: false,
-      hostIP: null,
+      hostAddress: null,
       teamName: null,
       password: null
     };
@@ -24,10 +18,13 @@ class Main extends Component {
     this.handleCallback = this.handleCallback.bind(this);
   }
 
-  handleCallback = (childIP, childTeamName, childPassword) => {
+  componentDidMount() {
+    this.setState({hostAddress: window.location.hostname });
+  }
+
+  handleCallback = (childTeamName, childPassword) => {
     this.setState({
       initialized: true,
-      hostIP: childIP,
       teamName: childTeamName,
       password: childPassword
     });
@@ -36,20 +33,19 @@ class Main extends Component {
   render() {
     const initialized = this.state.initialized;
     if (!initialized) {
-      return <InitializationMode parentCallback={this.handleCallback} />
+      return <InitializationMode hostAddress={this.state.hostAddress} parentCallback={this.handleCallback} />
     } else {
-      return <BuzzMode ip={this.state.hostIP} teamName={this.state.teamName} password={this.state.password} />
+      return <BuzzMode hostAddress={this.state.hostAddress} teamName={this.state.teamName} password={this.state.password} />
     }
   }
 }
 
 class InitializationMode extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      hostInput: '10.0.0.27',
-      teamInput: '',
-      passwordInput: ''
+      teamName: '',
+      password: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -64,23 +60,19 @@ class InitializationMode extends Component {
 
   handleCallback = () => {
     this.props.parentCallback(
-      this.state.hostInput,
-      this.state.teamInput,
-      this.state.passwordInput
+      this.state.teamName,
+      this.state.password
     );
   };
 
   render() {
     return (<div>
-      <label htmlFor="hostInput">LAN Host IP: </label>
-      <input id="hostInput" value={this.state.hostInput} onChange={this.handleChange} name="hostInput"></input>
+      <label htmlFor="teamName">Team Name: </label>
+      <input id="teamName" value={this.state.teamName} onChange={this.handleChange} name="teamName"></input>
       <br />
-      <label htmlFor="teamInput">Team Name: </label>
-      <input id="teamInput" value={this.state.teamInput} onChange={this.handleChange} name="teamInput"></input>
-      <br />
-      <label htmlFor="passwordInput">Password (optional): </label>
-      <input id="passwordInput" type="password" value={this.state.passwordInput} onChange={this.handleChange} name="passwordInput"></input>
-      <InitializationButton ip={this.state.hostInput} teamName={this.state.teamInput} password={this.state.passwordInput} parentCallback={this.handleCallback} />
+      <label htmlFor="password">Password (optional): </label>
+      <input id="password" type="password" value={this.state.password} onChange={this.handleChange} name="password"></input>
+      <InitializationButton hostAddress={this.props.hostAddress} teamName={this.state.teamName} password={this.state.password} parentCallback={this.handleCallback} />
     </div>
     )
   }
@@ -94,7 +86,7 @@ class InitializationButton extends Component {
   }
 
   handleClick() {
-    axios.post('http://' + this.props.ip + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
+    axios.post('http://' + this.props.hostAddress + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
       .then(() => {
         this.props.parentCallback()
       })
