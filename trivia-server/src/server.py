@@ -59,12 +59,13 @@ def buzz():
 def fetchQueue():
     return jsonify([buzzedTeams, unbuzzedTeams])
 
+
 @app.route('/clearBuzzes', methods=['POST'])
 def clearBuzzes():
-    for _ in range(len(buzzedTeams)):
-        unbuzzedTeams.append(buzzedTeams.pop())
+    unbuzzedTeams.append([buzzedTeams.pop() for _ in range(len(buzzedTeams))])
 
     return "Buzzes Cleared", 200
+
 
 @app.route('/clearTeams', methods=['POST'])
 def clearTeams():
@@ -72,6 +73,7 @@ def clearTeams():
 
     return "Cleared", 200
 
+
+
 if __name__ == '__main__':
-    serve(app, host='0.0.0.0', port="5000")
-    #app.run(port=5000, debug=True)
+    serve(app, port='5000')
