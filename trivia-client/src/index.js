@@ -47,7 +47,7 @@ class InitializationMode extends Component {
   constructor() {
     super();
     this.state = {
-      hostInput: '10.1.10.35',
+      hostInput: '10.0.0.27',
       teamInput: '',
       passwordInput: ''
     };
@@ -94,7 +94,7 @@ class InitializationButton extends Component {
   }
 
   handleClick() {
-    axios.post('https://' + this.props.ip + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
+    axios.post('http://' + this.props.ip + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
       .then(() => {
         this.props.parentCallback()
       })
@@ -134,7 +134,7 @@ class BuzzButton extends Component {
   }
 
   handleClick() {
-    axios.post('https://' + this.props.ip + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
+    axios.post('http://' + this.props.ip + ':5000/buzz', {teamName: this.props.teamName, password: this.props.password, crossDomain: true})
       .then(function (response) {
         console.log(response);
       })

@@ -28,7 +28,7 @@ class Leaderboard extends Component {
   fetchQueue() {
     axios.get('http://localhost:5000/fetchStatus')
       .then((response) => {
-        console.log(response.data[0])
+        console.log(response.data)
         this.setState({buzzedTeams: response.data[0]})
         this.setState({unbuzzedTeams: response.data[1]})
       })
@@ -60,7 +60,7 @@ class TeamList extends Component {
     return (<div>
       <h1>{this.props.name}</h1>
       {teams.map((teamName) => {
-        return <Team name={teamName[0]}/>
+        return <Team name={teamName}/>
       })}
     </div>
     )
