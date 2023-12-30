@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import InitializationMode, { InitializationButton } from './Initialization.js'
+import BuzzMode, { BuzzButton } from './Buzz.js'
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
 
@@ -19,7 +20,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    this.setState({hostAddress: window.location.hostname });
+    this.setState({ hostAddress: window.location.hostname });
   }
 
   handleCallback = (childTeamName, childPassword) => {
@@ -87,7 +88,7 @@ class InitializationButton extends Component {
 
   handleClick() {
     if (this.props.teamName != "") {
-      axios.post('http://' + this.props.hostAddress + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
+      axios.post('http://' + this.props.hostAddress + ':5000/register', { teamName: this.props.teamName, password: this.props.password })
         .then(() => {
           this.props.parentCallback()
         })
@@ -99,8 +100,8 @@ class InitializationButton extends Component {
 
   render() {
     return (<div>
-      <br/>
-      <button style={{backgroundColor: '#F96E46'}} onClick={this.handleClick}>Register</button>
+      <br />
+      <button style={{ backgroundColor: '#F96E46' }} onClick={this.handleClick}>Register</button>
     </div>
     )
   }
@@ -108,7 +109,7 @@ class InitializationButton extends Component {
 
 class BuzzMode extends Component {
   constructor(props) {
-    super(props)  
+    super(props)
   }
 
   render() {
@@ -129,7 +130,7 @@ class BuzzButton extends Component {
   }
 
   handleClick() {
-    axios.post('http://' + this.props.hostAddress + ':5000/buzz', {teamName: this.props.teamName, password: this.props.password})
+    axios.post('http://' + this.props.hostAddress + ':5000/buzz', { teamName: this.props.teamName, password: this.props.password })
       .then(function (response) {
         console.log(response);
       })
@@ -140,7 +141,7 @@ class BuzzButton extends Component {
 
   render() {
     return (<div>
-      <button style={{width:"75%", height: "150px", backgroundColor: '#4ECDC4'}} onClick={this.handleClick}>Buzz!</button>
+      <button style={{ width: "75%", height: "150px", backgroundColor: '#4ECDC4' }} onClick={this.handleClick}>Buzz!</button>
     </div>
     )
   }
@@ -149,7 +150,7 @@ class BuzzButton extends Component {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Main/>
+    <Main />
   </React.StrictMode>
 );
 
