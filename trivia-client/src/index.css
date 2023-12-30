@@ -14,3 +14,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {
+  padding:30px 30px;
+  position:relative;
+  border:none;
+  color: #292F36;
+  border-radius:2px;
+}
+
+button:hover{
+  background-color:#3ca09a;
+}
+
+button:active{
+  transform: scale(0.98); 
+  box-shadow: 10px 10px 10px 10px #000000;
+}

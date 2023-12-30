@@ -86,18 +86,21 @@ class InitializationButton extends Component {
   }
 
   handleClick() {
-    axios.post('http://' + this.props.hostAddress + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
-      .then(() => {
-        this.props.parentCallback()
-      })
-      .catch(function (error) {
-        alert(error)
-      });
+    if (this.props.teamName != "") {
+      axios.post('http://' + this.props.hostAddress + ':5000/register', {teamName: this.props.teamName, password: this.props.password})
+        .then(() => {
+          this.props.parentCallback()
+        })
+        .catch(function (error) {
+          alert(error)
+        });
+    }
   }
 
   render() {
     return (<div>
-      <button onClick={this.handleClick}>Register</button>
+      <br/>
+      <button style={{backgroundColor: '#F96E46'}} onClick={this.handleClick}>Register</button>
     </div>
     )
   }
@@ -112,7 +115,7 @@ class BuzzMode extends Component {
     return (<div>
       <p>Connected to: {this.props.ip}</p>
       <p>Team Name: {this.props.teamName}</p>
-      <BuzzButton ip={this.props.ip} teamName={this.props.teamName} password={this.props.password} />
+      <BuzzButton hostAddress={this.props.hostAddress} teamName={this.props.teamName} password={this.props.password} />
     </div>
     )
   }
@@ -126,7 +129,7 @@ class BuzzButton extends Component {
   }
 
   handleClick() {
-    axios.post('http://' + this.props.ip + ':5000/buzz', {teamName: this.props.teamName, password: this.props.password, crossDomain: true})
+    axios.post('http://' + this.props.hostAddress + ':5000/buzz', {teamName: this.props.teamName, password: this.props.password})
       .then(function (response) {
         console.log(response);
       })
@@ -137,7 +140,7 @@ class BuzzButton extends Component {
 
   render() {
     return (<div>
-      <button style={{backgroundColor: '#4ECDC4'}} onClick={this.handleClick}>Buzz!</button>
+      <button style={{width:"75%", height: "150px", backgroundColor: '#4ECDC4'}} onClick={this.handleClick}>Buzz!</button>
     </div>
     )
   }

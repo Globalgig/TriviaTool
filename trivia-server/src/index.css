@@ -14,3 +14,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {
+  padding:5px 5px;
+  position:relative;
+  bottom:5px;
+  border:none;
+  color: #292F36;
+  border-radius:2px;
+  background-color: #4ECDC4;
+}
+
+button:active{
+  transform: scale(0.98); 
+  box-shadow: 2px 2px 2px 2px #000000;
+}
+
+p {
+  width:50%;
+  margin:auto;
+  border-radius:9px;
+  color: #292F36
+}

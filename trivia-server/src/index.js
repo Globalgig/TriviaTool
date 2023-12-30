@@ -41,10 +41,10 @@ class Leaderboard extends Component {
   render() {
     return (<div>
       <div style={{width: '50%', float: 'left', color: '#F96E46'}}>
-        <TeamList teams={this.state.buzzedTeams} name='Buzzed Teams'/>
+        <TeamList teams={this.state.buzzedTeams} name='Buzzed Teams' color='#F96E46' endpoint="clearBuzzes"/>
       </div>
       <div style={{width: '50%', float: 'right', color: '#4ECDC4'}}>
-        <TeamList teams={this.state.unbuzzedTeams} name='Unbuzzed Teams'/>
+        <TeamList teams={this.state.unbuzzedTeams} name='Unbuzzed Teams' color='#4ECDC4' endpoint="clearTeams"/>
       </div>
     </div>
     )
@@ -54,14 +54,29 @@ class Leaderboard extends Component {
 class TeamList extends Component {
   constructor(props) {
     super(props)
+
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    axios.post('http://localhost:5000/' + this.props.endpoint)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render(){
     const teams = this.props.teams;
     return (<div>
-      <h1>{this.props.name}</h1>
+      <h1>
+        {this.props.name + " "}
+        <button style={{backgroundColor:this.props.color}} onClick={this.handleClick}>Clear</button>
+      </h1>
       {teams.map((teamName) => {
-        return <Team name={teamName}/>
+        return <Team name={teamName} color={this.props.color}/>
       })}
     </div>
     )
@@ -74,7 +89,10 @@ class Team extends Component {
   }
 
   render(){
-    return <p>{this.props.name}</p>
+    return <div style={{textAlign:"center"}}>
+        <p style={{backgroundColor:this.props.color}}>{this.props.name}</p>
+        <br/>
+      </div>
   }
 }
 
