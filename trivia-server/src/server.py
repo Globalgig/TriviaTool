@@ -62,14 +62,16 @@ def fetchQueue():
 
 @app.route('/clearBuzzes', methods=['POST'])
 def clearBuzzes():
-    unbuzzedTeams.append([buzzedTeams.pop() for _ in range(len(buzzedTeams))])
+    unbuzzedTeams.extend([buzzedTeams.pop() for _ in range(len(buzzedTeams))])
 
     return "Buzzes Cleared", 200
 
 
 @app.route('/clearTeams', methods=['POST'])
 def clearTeams():
-    teams, buzzedTeams, unbuzzedTeams = [], [], []
+    teams.clear()
+    buzzedTeams.clear()
+    unbuzzedTeams.clear()
 
     return "Cleared", 200
 
