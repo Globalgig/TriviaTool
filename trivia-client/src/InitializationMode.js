@@ -48,7 +48,11 @@ class InitializationButton extends Component {
     }
 
     handleClick() {
-        if (this.props.teamName != "") {
+        if (this.props.teamName === "") {
+            alert("Team name must not be empty.")
+        } else if (this.props.teamName.length > 30) {
+            alert("Team name is too long.")
+        } else {
             axios.post('http://' + this.props.hostAddress + ':5000/register', { teamName: this.props.teamName, password: this.props.password })
                 .then(() => {
                     this.props.parentCallback()

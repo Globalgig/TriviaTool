@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import InitializationMode from './InitializationMode.js'
 import BuzzMode from './BuzzMode.js'
+import './index.css';
 
 class Main extends Component {
   constructor() {

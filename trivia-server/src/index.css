@@ -31,8 +31,9 @@ button:active{
 }
 
 p {
-  width:50%;
+  width:70%;
   margin:auto;
   border-radius:9px;
-  color: #292F36
+  color: #292F36;
+  font-size: 30px;
 }

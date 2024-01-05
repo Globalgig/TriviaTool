@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class BuzzMode extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (<div>
-      <p>Connected to: {this.props.ip}</p>
-      <p>Team Name: {this.props.teamName}</p>
+      <p>Connected to: <span style={{color: '#4ECDC4'}}>{this.props.hostAddress}</span></p>
+      <p>Team Name: <span style={{color: '#F96E46'}}>{this.props.teamName}</span></p>
       <BuzzButton hostAddress={this.props.hostAddress} teamName={this.props.teamName} password={this.props.password} />
     </div>
     )
